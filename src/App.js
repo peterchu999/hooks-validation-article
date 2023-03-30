@@ -1,31 +1,79 @@
 import React from 'react';
-
+import { useForm } from 'react-hook-form';
 import './style.css';
 
 export default function App() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
   return (
     <div>
       <h1>Sandwich Pre-Order Form</h1>
-      <form>
+      <form
+        onSubmit={handleSubmit(
+          (data) => {
+            console.log('successfully submit', data);
+          },
+          (error) => {
+            console.log('some validation had failed', error);
+          }
+        )}
+      >
         <div
           style={{
             display: 'flex',
             width: '50%',
-            justifyContent: 'space-between',
+            flexDirection: 'column',
           }}
         >
-          <label>Name</label>
-          <input />
+          <div
+            style={{
+              display: 'flex',
+              flex: 1,
+              justifyContent: 'space-between',
+            }}
+          >
+            <label>Name</label>
+            <input
+              {...register('name', {
+                required: 'name is required',
+                minLength: {
+                  value: 3,
+                  message: 'name should have minimum 3 characther',
+                },
+              })}
+            />
+          </div>
+
+          {errors.name && <p style={{ color: 'red' }}>{errors.name.message}</p>}
         </div>
-        <div
-          style={{
-            display: 'flex',
-            width: '50%',
-            justifyContent: 'space-between',
-          }}
-        >
-          <label>Email</label>
-          <input />
+        <div>
+          <div
+            style={{
+              display: 'flex',
+              width: '50%',
+              justifyContent: 'space-between',
+            }}
+          >
+            <label>Email</label>
+            <input
+              {...register('email', {
+                required: 'email fields are required',
+                validate: (value) => {
+                  console.log(value);
+                  if (!value.includes('@dev.to')) {
+                    return 'need to use dev to email';
+                  }
+                  return true;
+                },
+              })}
+            />
+          </div>
+          {errors.email && (
+            <p style={{ color: 'red' }}>{errors.email.message}</p>
+          )}
         </div>
         <div
           style={{
@@ -35,7 +83,7 @@ export default function App() {
           }}
         >
           <label>Phone Number</label>
-          <input />
+          <input {...register('phone-number')} />
         </div>
         <div
           style={{
@@ -45,7 +93,7 @@ export default function App() {
           }}
         >
           <label>Sandwich Qty</label>
-          <input />
+          <input {...register('qty')} />
         </div>
         <input type="submit" />
       </form>
