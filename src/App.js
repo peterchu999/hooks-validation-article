@@ -1,5 +1,6 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { resolver } from './FormValidation';
 import './style.css';
 
 export default function App() {
@@ -7,7 +8,7 @@ export default function App() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm({ resolver: resolver });
   return (
     <div>
       <h1>Sandwich Pre-Order Form</h1>
@@ -75,15 +76,20 @@ export default function App() {
             <p style={{ color: 'red' }}>{errors.email.message}</p>
           )}
         </div>
-        <div
-          style={{
-            display: 'flex',
-            width: '50%',
-            justifyContent: 'space-between',
-          }}
-        >
-          <label>Phone Number</label>
-          <input {...register('phone-number')} />
+        <div>
+          <div
+            style={{
+              display: 'flex',
+              width: '50%',
+              justifyContent: 'space-between',
+            }}
+          >
+            <label>Phone Number</label>
+            <input {...register('phoneNumber')} />
+          </div>
+          {errors.phoneNumber && (
+            <p style={{ color: 'red' }}>{errors.phoneNumber.message}</p>
+          )}
         </div>
         <div
           style={{
