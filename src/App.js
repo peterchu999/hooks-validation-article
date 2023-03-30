@@ -1,5 +1,5 @@
 import React from 'react';
-import FormField from './components/FormFields';
+
 import './style.css';
 
 export default function App() {
@@ -7,10 +7,46 @@ export default function App() {
     <div>
       <h1>Sandwich Pre-Order Form</h1>
       <form>
-        <FormField label="Name" />
-        <FormField label="Email" />
-        <FormField label="Phone Number" />
-        <FormField label="Sandwich Qty" />
+        <div
+          style={{
+            display: 'flex',
+            width: '50%',
+            justifyContent: 'space-between',
+          }}
+        >
+          <label>Name</label>
+          <input />
+        </div>
+        <div
+          style={{
+            display: 'flex',
+            width: '50%',
+            justifyContent: 'space-between',
+          }}
+        >
+          <label>Email</label>
+          <input />
+        </div>
+        <div
+          style={{
+            display: 'flex',
+            width: '50%',
+            justifyContent: 'space-between',
+          }}
+        >
+          <label>Phone Number</label>
+          <input />
+        </div>
+        <div
+          style={{
+            display: 'flex',
+            width: '50%',
+            justifyContent: 'space-between',
+          }}
+        >
+          <label>Sandwich Qty</label>
+          <input />
+        </div>
         <input type="submit" />
       </form>
     </div>
